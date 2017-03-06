@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CraigsListClone.Models;
+using System.Collections.Generic;
 
 namespace CraigsListClone.Controllers
 {
@@ -139,7 +140,26 @@ namespace CraigsListClone.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            ViewBag.CityId = new SelectList(db.Cities, "Id", "Name");
+
             return View();
+        }
+
+        // Get list of Cities
+        /* https://github.com/NLHawkins/ShopList/blob/f9c68680092e3b012087ffd706b54f84165eb322/ShopList/Controllers/AccountController.cs */
+        private IEnumerable<SelectListItem> GetCities()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var cities = db.Cities
+                        .Select(x =>
+                                new SelectListItem
+                                {
+                                    Value = x.Id.ToString(),
+                                    Text = x.Name + ", " + x.State
+                                });
+
+            return new SelectList(cities, "Value", "Text");
         }
 
         //
@@ -151,20 +171,22 @@ namespace CraigsListClone.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, CityId = model.CityId };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                    
                     return RedirectToAction("Index", "Home");
                 }
+                
                 AddErrors(result);
             }
 

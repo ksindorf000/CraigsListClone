@@ -41,6 +41,9 @@ namespace CraigsListClone.Controllers
                 //Create Post
                 post.Created = DateTime.Now;
                 post.OwnerId = OwnerId;
+
+                /********add owners city here************/
+
                 db.Posts.Add(post);
 
                 db.SaveChanges();

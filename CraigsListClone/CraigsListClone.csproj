@@ -199,11 +199,25 @@
     <Compile Include="Migrations\201703061858439_AddCreatedDateTime.Designer.cs">
       <DependentUpon>201703061858439_AddCreatedDateTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703061937281_AddedCityTable.cs" />
+    <Compile Include="Migrations\201703061937281_AddedCityTable.Designer.cs">
+      <DependentUpon>201703061937281_AddedCityTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703061946202_AddedUserPreferenceTable.cs" />
+    <Compile Include="Migrations\201703061946202_AddedUserPreferenceTable.Designer.cs">
+      <DependentUpon>201703061946202_AddedUserPreferenceTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703062047557_ChangingWhereUserCityIsStored.cs" />
+    <Compile Include="Migrations\201703062047557_ChangingWhereUserCityIsStored.Designer.cs">
+      <DependentUpon>201703062047557_ChangingWhereUserCityIsStored.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\City.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\UserPrefData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -284,6 +298,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703061858439_AddCreatedDateTime.resx">
       <DependentUpon>201703061858439_AddCreatedDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703061937281_AddedCityTable.resx">
+      <DependentUpon>201703061937281_AddedCityTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703061946202_AddedUserPreferenceTable.resx">
+      <DependentUpon>201703061946202_AddedUserPreferenceTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062047557_ChangingWhereUserCityIsStored.resx">
+      <DependentUpon>201703062047557_ChangingWhereUserCityIsStored.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CraigsListClone.Models
 {
@@ -16,11 +17,18 @@ namespace CraigsListClone.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public int? CityId { get; set; }
+        [ForeignKey("CityId")]
+        public virtual City City { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Post> Posts { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<UserPrefData> UserPrefData { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

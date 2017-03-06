@@ -17,5 +17,10 @@ namespace CraigsListClone.Models
         public string OwnerId { get; set; }
         [ForeignKey("OwnerId")]
         public virtual ApplicationUser Owner { get; set; }
+
+        public int CityId { get; set; }
+        [ForeignKey("CityId")]
+        public virtual City PostCity { get; set; }
+
     }
 }
