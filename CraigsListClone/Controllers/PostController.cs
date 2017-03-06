@@ -72,6 +72,15 @@ namespace CraigsListClone.Controllers
                 return HttpNotFound();
             }
 
+            if (User.Identity.GetUserId() == post.OwnerId)
+            {
+                ViewBag.CanEdit = true;
+            }
+            else
+            {
+                ViewBag.CanEdit = false;
+            }
+                       
             return View(post);
         }
 

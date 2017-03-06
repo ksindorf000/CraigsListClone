@@ -11,7 +11,7 @@
         <h1 class="header-h">
             @Model.Title
 
-            @if (User.Identity.Name == Model.Owner.UserName && ViewBag.canEdit == true)
+            @if (ViewBag.CanEdit)
             {
                 <a href="@Url.Action("Edit", "Post", new { id = Model.Id })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a href="@Url.Action("Delete", "Post", new { id = Model.Id })" class="btn btn-danger"><span class="glyphicon glyphicon-ban-circle"></span></a>
