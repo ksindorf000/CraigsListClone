@@ -12,7 +12,7 @@ namespace CraigsListClone.Models
         public string Title { get; set; }
         public string Desc { get; set; }
         public double Cost { get; set; }
-        public DateTime Created { get; set; }
+        public DateTime? Created { get; set; }
         
         public string OwnerId { get; set; }
         [ForeignKey("OwnerId")]

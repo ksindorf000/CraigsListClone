@@ -1,0 +1,49 @@
+﻿@model CraigsListClone.Models.Post
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="container">
+    <div class="col-md-12 text-center marb-35">
+
+        <!-----------PAGE HEADER------------->
+        <h2>Are you sure you want to delete this Post?</h2>
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <a href="@Url.Action("Index", "Home")">
+                    <input type="button" value="Cancel" class="btn btn-default" />
+                </a>
+                <br />
+            </div>
+            }
+        <!-----------POST HEADER------------->
+
+        <h1 class="header-h">
+            @Model.Title
+            <a href="@Url.Action("Edit", "Post", new { id = Model.Id })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+        </h1>       
+    </div>
+</div>
+
+<!------POST-------->
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="category-1 menu-user menu-restaurant" data-myorder="2">
+            <span class="clearfix">
+                @Model.Desc
+            </span>
+            <div class="menu-subtitle">
+                <p>@Model.Cost</p>
+                <p>@Model.Created.ToString()</p>
+            </div>
+            <span class="marb-35">
+                &nbsp;
+            </span>
+            <hr />
+        </div>
+    </div>
+</div>

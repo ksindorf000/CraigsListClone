@@ -104,13 +104,15 @@ namespace CraigsListClone.Controllers
                 return HttpNotFound();
             }
 
+            ViewBag.CityId = new SelectList(db.Cities, "Id", "Name");
+            
             return View(post);
         }
 
         // EDIT: Post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Desc,Cost,OwnerId")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,Title,Desc,Cost,CityId,OwnerId")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -118,7 +120,7 @@ namespace CraigsListClone.Controllers
                 post.Created = post.Created;
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
@@ -155,7 +157,7 @@ namespace CraigsListClone.Controllers
             db.Posts.Remove(post);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

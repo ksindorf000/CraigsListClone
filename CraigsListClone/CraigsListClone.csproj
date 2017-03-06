@@ -215,6 +215,10 @@
     <Compile Include="Migrations\201703062053024_DroppedUserPrefTable.Designer.cs">
       <DependentUpon>201703062053024_DroppedUserPrefTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703062148392_MadePostCreationNullable.cs" />
+    <Compile Include="Migrations\201703062148392_MadePostCreationNullable.Designer.cs">
+      <DependentUpon>201703062148392_MadePostCreationNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\City.cs" />
@@ -281,6 +285,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Post\Detail.cshtml" />
+    <Content Include="Views\Post\Edit.cshtml" />
+    <Content Include="Views\Post\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -314,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703062053024_DroppedUserPrefTable.resx">
       <DependentUpon>201703062053024_DroppedUserPrefTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062148392_MadePostCreationNullable.resx">
+      <DependentUpon>201703062148392_MadePostCreationNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
