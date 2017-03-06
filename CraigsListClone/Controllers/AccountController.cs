@@ -145,23 +145,7 @@ namespace CraigsListClone.Controllers
 
             return View();
         }
-
-        // Get list of Cities
-        /* https://github.com/NLHawkins/ShopList/blob/f9c68680092e3b012087ffd706b54f84165eb322/ShopList/Controllers/AccountController.cs */
-        private IEnumerable<SelectListItem> GetCities()
-        {
-            ApplicationDbContext db = new ApplicationDbContext();
-            var cities = db.Cities
-                        .Select(x =>
-                                new SelectListItem
-                                {
-                                    Value = x.Id.ToString(),
-                                    Text = x.Name + ", " + x.State
-                                });
-
-            return new SelectList(cities, "Value", "Text");
-        }
-
+        
         //
         // POST: /Account/Register
         [HttpPost]

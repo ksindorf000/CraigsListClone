@@ -28,7 +28,6 @@ namespace CraigsListClone.Models
     {
         public DbSet<Post> Posts { get; set; }
         public DbSet<City> Cities { get; set; }
-        public DbSet<UserPrefData> UserPrefData { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
