@@ -4,53 +4,60 @@
     ViewBag.Title = "Create";
 }
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="header-h text-center">Post an Item</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="header-h text-center">Post an Item</h1>
 
-                @using (Html.BeginForm())
-                {
-                    <div class="col-md-8 col-md-offset-2">
+            @using (Html.BeginForm())
+            {
+                <div class="col-md-8 col-md-offset-2">
 
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="row">
-                            <!---------TITLE--------->
-                            @Html.LabelFor(model => model.Title)<br />
-                            <div class="form-group">
-                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <!---------TITLE--------->
+                        @Html.LabelFor(model => model.Title)<br />
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!----------DESC--------->
+                        @Html.LabelFor(model => model.Desc)<br />
+                        <div class="form-group">
+                            @Html.TextAreaFor(model => model.Desc, new { Class = "form-control ans-textarea", Rows = "4" })
+                            @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!----------COST--------->
+                        @Html.LabelFor(model => model.Cost)<br />
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.Cost, new { Class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <!-----------Uploads------------->
+                    <div class="row">
+                        <p class="header-p">Caption your attachment (optional):</p>
+                        @Html.Partial("_Uploader")
+                    </div>
+
+                    <div class="row marb-35">
+                        <div class="btnpad">
+                            <!---------SUBMIT------------>
+                            <div>
+                                <p>@ViewBag.successMsg</p>
+                                <input type="submit" value="Save and Add Another" class="btn" />
                             </div>
                         </div>
-                        <div class="row">
-                            <!----------DESC--------->
-                            @Html.LabelFor(model => model.Desc)<br />
-                            <div class="form-group">
-                                @Html.TextAreaFor(model => model.Desc, new { Class = "form-control ans-textarea", Rows = "4" })
-                                @Html.ValidationMessageFor(model => model.Desc, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <!----------COST--------->
-                            @Html.LabelFor(model => model.Cost)<br />
-                            <div class="form-group">
-                                @Html.EditorFor(model => model.Cost, new { Class = "form-control"})
-                                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="row marb-35">                            
-                            <div class="btnpad">
-                                <!---------SUBMIT------------>
-                                <div>
-                                    <p>@ViewBag.successMsg</p>
-                                    <input type="submit" value="Save and Add Another" class="btn" />
-                                </div>
-                            </div>
-                        </div>
-                }
-                        
-            </div>
+                    </div>
+            }
+
         </div>
     </div>
+</div>
 </div>

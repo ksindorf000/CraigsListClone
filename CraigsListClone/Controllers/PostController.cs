@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -50,12 +51,62 @@ namespace CraigsListClone.Controllers
                 db.Posts.Add(post);
 
                 db.SaveChanges();
+
+                
+
                 RedirectToAction("Index", "Home");
             }
             ModelState.Clear();
             return View();
         }
-        
+
+        // POST: Image Upload
+        [HttpPost]
+        public ActionResult Create(UploadViewModel formData, int? id)
+        {
+            //Get File and Create Path
+            var uploadedFile = Request.Files[0];
+            string filename = $"{DateTime.Now.Ticks}{uploadedFile.FileName}";
+            var serverPath = Server.MapPath(@"~\Upload");
+            var fullPath = Path.Combine(serverPath, filename);
+
+            //Resize Image
+            //WebImage img = new WebImage(uploadedFile.InputStream);
+            //if (img.Width > 1000)
+            //    img.Resize(1000, 1000);
+
+            //Save Image
+            uploadedFile.SaveAs(fullPath);
+
+            var userId = User.Identity.GetUserId();
+            var pId = id;
+
+            //Get Post Id if not provided            
+            if (pId == null)
+            {
+                pId = db.Posts
+                    .Where(q => q.OwnerId == userId)
+                    .OrderByDescending(q => q.Created)
+                    .Select(q => q.Id)
+                    .FirstOrDefault();
+            }
+
+            //Create Upload Entry
+            var uploadModel = new Upload
+            {
+                Caption = formData.Caption,
+                File = filename,
+                OwnerId = User.Identity.GetUserId(),
+                RefId = pId,
+                TypeRef = "Post",
+            };
+
+            db.Uploads.Add(uploadModel);
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         // DETAIL
         [Route("p/{id}")]
         public ActionResult Detail(int? id)
@@ -80,7 +131,7 @@ namespace CraigsListClone.Controllers
             {
                 ViewBag.CanEdit = false;
             }
-                       
+
             return View(post);
         }
 
