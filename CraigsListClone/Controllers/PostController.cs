@@ -57,7 +57,7 @@ namespace CraigsListClone.Controllers
         }
         
         // DETAIL
-        [Route("Detail/{id}")]
+        [Route("p/{id}")]
         public ActionResult Detail(int? id)
         {
             if (id == null)

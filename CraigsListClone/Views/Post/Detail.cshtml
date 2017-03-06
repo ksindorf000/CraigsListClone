@@ -1,0 +1,44 @@
+﻿@model CraigsListClone.Models.Post
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div class="container">
+
+    <!-----------HEADER------------->
+    <div class="col-md-12 text-center marb-35">
+        <h1 class="header-h">
+            @Model.Title
+
+            @if (User.Identity.Name == Model.Owner.UserName && ViewBag.canEdit == true)
+            {
+                <a href="@Url.Action("Edit", "Post", new { id = Model.Id })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="@Url.Action("Delete", "Post", new { id = Model.Id })" class="btn btn-danger"><span class="glyphicon glyphicon-ban-circle"></span></a>
+
+            }
+        </h1>       
+        <p class="header-p">
+            Posted by:
+            <a href="/u/@Model.Owner.UserName">@Model.Owner.UserName</a>
+        </p>
+    </div>
+</div>
+
+<!------Post----->
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div>
+            <span class="clearfix">
+                @Model.Desc 
+            </span>
+            <div class="menu-subtitle">
+                <p>@Model.Created.ToString()</p>
+            </div>
+            <span class="marb-35">
+                &nbsp;
+            </span>
+            <hr />
+        </div>
+    </div>
+</div>
