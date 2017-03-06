@@ -38,12 +38,15 @@ namespace CraigsListClone.Controllers
             if (ModelState.IsValid)
             {
                 var OwnerId = User.Identity.GetUserId();
-                //Create Post
+
                 post.Created = DateTime.Now;
                 post.OwnerId = OwnerId;
 
-                /********add owners city here************/
-
+                post.CityId = (int)db.Users
+                    .Where(u => u.Id == OwnerId)
+                    .Select(u => u.CityId)
+                    .SingleOrDefault();
+                    
                 db.Posts.Add(post);
 
                 db.SaveChanges();

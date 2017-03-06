@@ -1,4 +1,5 @@
 ﻿using CraigsListClone.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,26 @@ namespace CraigsListClone.Controllers
         // GET: Posts
         public ViewResult Index()
         {
+            var userId = User.Identity.GetUserId();
+
+            if (userId != null)
+            {
+                var userCity = db.Users
+                    .Where(u => u.Id == userId)
+                    .Select(u => u.CityId)
+                    .SingleOrDefault();
+
+                return View(db.Posts
+                    .Where(p => p.CityId == userCity)
+                    .OrderByDescending(q => q.Created)
+                    .ToList()
+                    .Take(5));
+            }
+
             return View(db.Posts
-                .OrderByDescending(q => q.Created)
-                .ToList()
-                .Take(5));
+                   .OrderByDescending(q => q.Created)
+                   .ToList()
+                   .Take(5));
         }
 
         public ActionResult About()
