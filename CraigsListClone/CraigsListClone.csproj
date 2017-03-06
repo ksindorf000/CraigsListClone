@@ -219,12 +219,17 @@
     <Compile Include="Migrations\201703062148392_MadePostCreationNullable.Designer.cs">
       <DependentUpon>201703062148392_MadePostCreationNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703062159303_AddedUploadsTable.cs" />
+    <Compile Include="Migrations\201703062159303_AddedUploadsTable.Designer.cs">
+      <DependentUpon>201703062159303_AddedUploadsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -323,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703062148392_MadePostCreationNullable.resx">
       <DependentUpon>201703062148392_MadePostCreationNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062159303_AddedUploadsTable.resx">
+      <DependentUpon>201703062159303_AddedUploadsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
