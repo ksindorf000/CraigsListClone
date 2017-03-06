@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CraigsListClone.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,15 @@ namespace CraigsListClone.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        ApplicationDbContext db = new ApplicationDbContext();
+
+        // GET: Posts
+        public ViewResult Index()
         {
-            return View();
+            return View(db.Posts
+                .OrderByDescending(q => q.Created)
+                .ToList()
+                .Take(5));
         }
 
         public ActionResult About()
