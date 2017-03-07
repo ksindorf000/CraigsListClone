@@ -22,5 +22,7 @@ namespace CraigsListClone.Models
         [ForeignKey("CityId")]
         public virtual City PostCity { get; set; }
 
+        public virtual ICollection<Category> Categories { get; set; }
+
     }
 }

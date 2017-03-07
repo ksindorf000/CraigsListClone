@@ -14,14 +14,15 @@
             @if (ViewBag.CanEdit)
             {
                 <a href="@Url.Action("Edit", "Post", new { id = Model.Id })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a href="@Url.Action("Delete", "Post", new { id = Model.Id })" class="btn btn-danger"><span class="glyphicon glyphicon-ban-circle"></span></a>
+                <a href="@Url.Action("Delete", "Post", new { id = Model.Id })" class="btn btn-danger"><span class="glyphicon glyphicon-ban-circle"></span></a>
 
             }
-        </h1>       
+        </h1>
         <p class="header-p">
             Posted by:
             <a href="/u/@Model.Owner.UserName">@Model.Owner.UserName</a>
         </p>
+        <p>@Model.Created.ToString()</p>
     </div>
 </div>
 
@@ -29,14 +30,18 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div>
-            <span class="clearfix">
-                @Model.Desc 
-            </span>
-            <div class="menu-subtitle">
-                <p>@Model.Created.ToString()</p>
-            </div>
+            @Model.Desc
+            <ul>
+                @foreach (var u in ViewBag.UploadsList)
+                {
+                    <li><img src="@u.FilePath" /></li>
+                }
+            </ul>
             <span class="marb-35">
-                &nbsp;
+                @if (ViewBag.CanEdit)
+                {
+                    @Html.Partial("_Upload")
+                }
             </span>
             <hr />
         </div>

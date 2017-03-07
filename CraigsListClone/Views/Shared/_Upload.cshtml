@@ -1,0 +1,22 @@
+﻿@model CraigsListClone.Models.Post
+
+<!-----------Uploads------------->
+@using (Html.BeginForm("Upload", "Post", new { id = Model.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <p>
+            <input type="text" name="Caption" class="form-control" title="Caption" />
+        </p>
+        <p>
+            <input type="file" name="File" class="form-control btn btn-default" />
+        </p>
+        <p>
+            <button type="submit" class="btn btn-toolbar btn-success">
+                <span class="glyphicon glyphicon-check"></span>
+            </button>
+        </p>
+    </div>
+}

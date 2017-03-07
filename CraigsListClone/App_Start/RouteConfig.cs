@@ -18,6 +18,11 @@ namespace CraigsListClone
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "PostDetail",
+                url: "p/{id}",
+                defaults: new { controller = "Post", action = "Detail", id = UrlParameter.Optional }
+            );
         }
     }
 }

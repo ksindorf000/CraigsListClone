@@ -39,24 +39,17 @@
                             @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
-                    <!-----------Uploads------------->
                     <div class="row">
-                        <p class="header-p">Caption your attachment (optional):</p>
-                        @Html.Partial("_Uploader")
-                    </div>
-
-                    <div class="row marb-35">
                         <div class="btnpad">
                             <!---------SUBMIT------------>
                             <div>
-                                <p>@ViewBag.successMsg</p>
-                                <input type="submit" value="Save and Add Another" class="btn" />
+                                <button type="submit" class="btn btn-toolbar btn-success">
+                                    <span class="glyphicon glyphicon-check"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
             }
-
         </div>
     </div>
 </div>

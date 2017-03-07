@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace CraigsListClone.Controllers
@@ -27,7 +28,6 @@ namespace CraigsListClone.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.controlName = "Post";
             return View();
         }
 
@@ -36,8 +36,12 @@ namespace CraigsListClone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Desc,Cost,OwnerId")] Post post)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
+                ModelState.Clear();
+                return View();
+            }
+
                 var OwnerId = User.Identity.GetUserId();
 
                 post.Created = DateTime.Now;
@@ -47,22 +51,20 @@ namespace CraigsListClone.Controllers
                     .Where(u => u.Id == OwnerId)
                     .Select(u => u.CityId)
                     .SingleOrDefault();
-                    
+
                 db.Posts.Add(post);
 
                 db.SaveChanges();
 
-                
+                int pId = post.Id;
+            return RedirectToAction("Index", "Home");
 
-                RedirectToAction("Index", "Home");
-            }
-            ModelState.Clear();
-            return View();
         }
 
         // POST: Image Upload
         [HttpPost]
-        public ActionResult Create(UploadViewModel formData, int? id)
+        [ValidateAntiForgeryToken]
+        public ActionResult Upload(UploadViewModel formData, int? id)
         {
             //Get File and Create Path
             var uploadedFile = Request.Files[0];
@@ -70,25 +72,20 @@ namespace CraigsListClone.Controllers
             var serverPath = Server.MapPath(@"~\Upload");
             var fullPath = Path.Combine(serverPath, filename);
 
-            //Resize Image
-            //WebImage img = new WebImage(uploadedFile.InputStream);
-            //if (img.Width > 1000)
-            //    img.Resize(1000, 1000);
-
             //Save Image
             uploadedFile.SaveAs(fullPath);
 
             var userId = User.Identity.GetUserId();
-            var pId = id;
+            int pId;
 
-            //Get Post Id if not provided            
-            if (pId == null)
+            //Get Question Id if not provided            
+            if (id == null)
             {
-                pId = db.Posts
-                    .Where(q => q.OwnerId == userId)
-                    .OrderByDescending(q => q.Created)
-                    .Select(q => q.Id)
-                    .FirstOrDefault();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                pId = (int)id;
             }
 
             //Create Upload Entry
@@ -104,7 +101,8 @@ namespace CraigsListClone.Controllers
             db.Uploads.Add(uploadModel);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Detail", pId);
+
         }
 
         // DETAIL
@@ -122,6 +120,10 @@ namespace CraigsListClone.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.UploadsList = db.Uploads
+                .Where(u => u.TypeRef == "Post" && u.RefId == post.Id)
+                .ToList();
 
             if (User.Identity.GetUserId() == post.OwnerId)
             {
@@ -156,7 +158,7 @@ namespace CraigsListClone.Controllers
             }
 
             ViewBag.CityId = new SelectList(db.Cities, "Id", "Name");
-            
+
             return View(post);
         }
 
@@ -194,7 +196,7 @@ namespace CraigsListClone.Controllers
             if (post == null)
             {
                 return HttpNotFound();
-            }                      
+            }
 
             return View(post);
         }
