@@ -1,4 +1,4 @@
-﻿@model CraigsListClone.Models.Post
+﻿@model CraigsListClone.Models.PostViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -37,6 +37,13 @@
                         <div class="form-group">
                             @Html.EditorFor(model => model.Cost, new { Class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!----------CATEGORIES--------->
+                        @Html.LabelFor(model => model.CatId)<br />
+                        <div class="form-group">
+                            @Html.EditorFor(model => model.CatId, new { Class = "form-control" })
                         </div>
                     </div>
                     <div class="row">

@@ -223,8 +223,13 @@
     <Compile Include="Migrations\201703062159303_AddedUploadsTable.Designer.cs">
       <DependentUpon>201703062159303_AddedUploadsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703070407281_WorkingOnCategories.cs" />
+    <Compile Include="Migrations\201703070407281_WorkingOnCategories.Designer.cs">
+      <DependentUpon>201703070407281_WorkingOnCategories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -331,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703062159303_AddedUploadsTable.resx">
       <DependentUpon>201703062159303_AddedUploadsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703070407281_WorkingOnCategories.resx">
+      <DependentUpon>201703070407281_WorkingOnCategories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

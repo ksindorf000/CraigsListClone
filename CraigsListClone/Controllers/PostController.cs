@@ -14,7 +14,7 @@ namespace CraigsListClone.Controllers
     public class PostController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-
+        
         // GET: Posts
         public ViewResult Index()
         {
@@ -28,6 +28,7 @@ namespace CraigsListClone.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            ViewBag.CatId = new SelectList(db.Categories, "Id", "Name");
             return View();
         }
 
