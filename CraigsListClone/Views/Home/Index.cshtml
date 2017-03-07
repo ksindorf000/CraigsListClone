@@ -5,12 +5,15 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">@Html.ActionLink("Create Post", "Create", "Post")</p>
+    <h1>Meg's List</h1>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p class="lead">@Html.ActionLink("Create Post", "Create", "Post")</p>
+    }
 </div>
 
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <h3>For Sale</h3>
         <hr />
         @foreach (var p in ViewBag.ForSale)
@@ -29,7 +32,7 @@
                     </p>
                 </div>
             </div>
-            <hr/>
+            <hr />
         }
     </div>
     <div class="col-lg-4">
@@ -54,7 +57,7 @@
             <hr />
         }
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <h3>Services</h3>
         <hr />
         @foreach (var p in ViewBag.Services)
