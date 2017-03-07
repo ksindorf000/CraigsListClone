@@ -227,6 +227,18 @@
     <Compile Include="Migrations\201703070407281_WorkingOnCategories.Designer.cs">
       <DependentUpon>201703070407281_WorkingOnCategories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703071746305_ChangedCategoryInPostViewModel.cs" />
+    <Compile Include="Migrations\201703071746305_ChangedCategoryInPostViewModel.Designer.cs">
+      <DependentUpon>201703071746305_ChangedCategoryInPostViewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703071909387_AddedPostCategories.cs" />
+    <Compile Include="Migrations\201703071909387_AddedPostCategories.Designer.cs">
+      <DependentUpon>201703071909387_AddedPostCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703071914293_MadeParentIdNullable.cs" />
+    <Compile Include="Migrations\201703071914293_MadeParentIdNullable.Designer.cs">
+      <DependentUpon>201703071914293_MadeParentIdNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -234,6 +246,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostCategory.cs" />
     <Compile Include="Models\Upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -339,6 +352,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703070407281_WorkingOnCategories.resx">
       <DependentUpon>201703070407281_WorkingOnCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703071746305_ChangedCategoryInPostViewModel.resx">
+      <DependentUpon>201703071746305_ChangedCategoryInPostViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703071909387_AddedPostCategories.resx">
+      <DependentUpon>201703071909387_AddedPostCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703071914293_MadeParentIdNullable.resx">
+      <DependentUpon>201703071914293_MadeParentIdNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

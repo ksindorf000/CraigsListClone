@@ -43,7 +43,7 @@
                         <!----------CATEGORIES--------->
                         @Html.LabelFor(model => model.CatId)<br />
                         <div class="form-group">
-                            @Html.EditorFor(model => model.CatId, new { Class = "form-control" })
+                            @Html.ListBoxFor(m => m.CatId, Model.Categories, new { size = 10 })
                         </div>
                     </div>
                     <div class="row">

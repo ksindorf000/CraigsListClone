@@ -14,27 +14,15 @@ namespace CraigsListClone.Controllers
 
         // GET: Posts
         public ViewResult Index()
-        {
-            var userId = User.Identity.GetUserId();
-
-            if (userId != null)
+        {           
+            List<PostViewModel> pvmList = new List<PostViewModel>();
+            List<Post> postList = db.Posts.OrderByDescending(p => p.Created).ToList();
+            foreach (var post in postList)
             {
-                var userCity = db.Users
-                    .Where(u => u.Id == userId)
-                    .Select(u => u.CityId)
-                    .SingleOrDefault();
-
-                return View(db.Posts
-                    .Where(p => p.CityId == userCity)
-                    .OrderByDescending(q => q.Created)
-                    .ToList()
-                    .Take(5));
-            }
-
-            return View(db.Posts
-                   .OrderByDescending(q => q.Created)
-                   .ToList()
-                   .Take(5));
+                PostViewModel pVM = new PostViewModel(post);
+                pvmList.Add(pVM);
+            };
+            return View(pvmList);
         }
 
         public ActionResult About()

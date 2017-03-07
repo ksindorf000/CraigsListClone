@@ -14,22 +14,44 @@ namespace CraigsListClone.Controllers
     public class PostController : Controller
     {
         ApplicationDbContext db = new ApplicationDbContext();
-        
+
         // GET: Posts
         public ViewResult Index()
         {
-            return View(db.Posts
-                .OrderByDescending(q => q.Created)
-                .ToList()
-                .Take(5));
+            List<PostViewModel> pvmList = new List<PostViewModel>();
+            List<Post> postList = db.Posts.ToList();
+            foreach (var post in postList)
+            {
+                PostViewModel pVM = new PostViewModel(post);
+                pvmList.Add(pVM);
+            };
+            return View(pvmList);
         }
 
         // CREATE: Initial View
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.CatId = new SelectList(db.Categories, "Id", "Name");
-            return View();
+            var catList = db.Categories.ToList();
+            var model = new PostViewModel
+            {
+                Categories = GetCatList()
+            };
+            return View(model);
+        }
+
+        /* https://github.com/NLHawkins/ShopList/blob/master/ShopList/Controllers/PostController.cs */
+        private IEnumerable<SelectListItem> GetCatList()
+        {
+            var catList = db.Categories
+                .Where(c => c.ParentId != null)
+                .Select(c => new SelectListItem
+                        {
+                            Value = c.Id.ToString(),
+                            Text = c.Name
+                        });
+
+            return new SelectList(catList, "Value", "Text");
         }
 
         // CREATE: Post
@@ -43,21 +65,30 @@ namespace CraigsListClone.Controllers
                 return View();
             }
 
-                var OwnerId = User.Identity.GetUserId();
+            var OwnerId = User.Identity.GetUserId();
 
-                post.Created = DateTime.Now;
-                post.OwnerId = OwnerId;
+            post.Created = DateTime.Now;
+            post.OwnerId = OwnerId;
 
-                post.CityId = (int)db.Users
-                    .Where(u => u.Id == OwnerId)
-                    .Select(u => u.CityId)
-                    .SingleOrDefault();
+            post.CityId = (int)db.Users
+                .Where(u => u.Id == OwnerId)
+                .Select(u => u.CityId)
+                .SingleOrDefault();
 
-                db.Posts.Add(post);
+            db.Posts.Add(post);
 
-                db.SaveChanges();
+            var postCat = new PostCategory()
+            {
+                PostId = post.Id,
+                CatId = int.Parse(Request.Form["CatId"])
+            };
 
-                int pId = post.Id;
+            db.PostCategories.Add(postCat);
+
+
+            db.SaveChanges();
+
+
             return RedirectToAction("Index", "Home");
 
         }

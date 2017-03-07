@@ -30,6 +30,8 @@ namespace CraigsListClone.Models
         public DbSet<City> Cities { get; set; }
         public DbSet<Upload> Uploads { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<PostCategory> PostCategories { get; set; }
+
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CraigsListClone.Models.Post>
+﻿@model List<CraigsListClone.Models.PostViewModel>
 
 @{
     ViewBag.Title = "Home Page";
@@ -13,7 +13,7 @@
 {
     <div class="row">
         <div class="col-md-4">
-            <h2><a href="/p/@p.Id">@p.Title</a></h2>
+            <h2><a href="/p/@p.Id">@p.Title</a> - @p.CatName</h2>
             <p>
                 @p.Desc
             </p>
