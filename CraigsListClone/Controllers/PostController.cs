@@ -19,7 +19,7 @@ namespace CraigsListClone.Controllers
         public ViewResult Index()
         {
             List<PostViewModel> pvmList = new List<PostViewModel>();
-            List<Post> postList = db.Posts.ToList();
+            List<Post> postList = db.Posts.OrderByDescending(p => p.Created).ToList();
             foreach (var post in postList)
             {
                 PostViewModel pVM = new PostViewModel(post);

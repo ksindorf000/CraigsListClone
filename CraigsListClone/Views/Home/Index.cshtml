@@ -9,20 +9,71 @@
     <p class="lead">@Html.ActionLink("Create Post", "Create", "Post")</p>
 </div>
 
-@foreach (var p in Model)
-{
-    <div class="row">
-        <div class="col-md-4">
-            <h2><a href="/p/@p.Id">@p.Title</a> - @p.CatName</h2>
-            <p>
-                @p.Desc
-            </p>
-            <p>
-                @p.Cost
-            </p>
-            <p>
-                @p.Owner.UserName
-            </p>
-        </div>
+<div class="row">
+    <div class="col-lg-3">
+        <h3>For Sale</h3>
+        <hr />
+        @foreach (var p in ViewBag.ForSale)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <strong><a href="/p/@p.Id">@p.Title</a> - @p.CatName</strong>
+                    <p>
+                        @p.Desc
+                    </p>
+                    <p>
+                        @p.Cost
+                    </p>
+                    <p>
+                        @p.Owner.UserName
+                    </p>
+                </div>
+            </div>
+            <hr/>
+        }
     </div>
-}
+    <div class="col-lg-4">
+        <h3>For Rent</h3>
+        <hr />
+        @foreach (var p in ViewBag.ForRent)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <strong><a href="/p/@p.Id">@p.Title</a> - @p.CatName</strong>
+                    <p>
+                        @p.Desc
+                    </p>
+                    <p>
+                        @p.Cost
+                    </p>
+                    <p>
+                        @p.Owner.UserName
+                    </p>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+    <div class="col-lg-3">
+        <h3>Services</h3>
+        <hr />
+        @foreach (var p in ViewBag.Services)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <strong><a href="/p/@p.Id">@p.Title</a> - @p.CatName</strong>
+                    <p>
+                        @p.Desc
+                    </p>
+                    <p>
+                        @p.Cost
+                    </p>
+                    <p>
+                        @p.Owner.UserName
+                    </p>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+</div>
