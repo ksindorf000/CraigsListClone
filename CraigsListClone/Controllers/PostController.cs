@@ -146,12 +146,14 @@ namespace CraigsListClone.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Post post = db.Posts.Find(id);
+            Post post = db.Posts.Where(p => p.Id == id).FirstOrDefault();
 
             if (post == null)
             {
                 return HttpNotFound();
             }
+
+            PostViewModel pVM = new PostViewModel(post);
 
             ViewBag.UploadsList = db.Uploads
                 .Where(u => u.TypeRef == "Post" && u.RefId == post.Id)
@@ -166,7 +168,7 @@ namespace CraigsListClone.Controllers
                 ViewBag.CanEdit = false;
             }
 
-            return View(post);
+            return View(pVM);
         }
 
         // EDIT: Initial View
@@ -189,9 +191,12 @@ namespace CraigsListClone.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.CityId = new SelectList(db.Cities, "Id", "Name");
+            PostViewModel pVM = new PostViewModel(post);
 
-            return View(post);
+            ViewBag.CityId = new SelectList(db.Cities, "Id", "Name");
+            ViewBag.CatId = new SelectList(db.Categories.Where(c => c.ParentId != null).ToList(), "Id", "Name");
+
+            return View(pVM);
         }
 
         // EDIT: Post
@@ -204,7 +209,16 @@ namespace CraigsListClone.Controllers
                 post.OwnerId = User.Identity.GetUserId();
                 post.Created = post.Created;
                 db.Entry(post).State = EntityState.Modified;
+
+                var postCat = db.PostCategories
+                    .Where(pc => pc.PostId == post.Id)
+                    .FirstOrDefault();
+
+                postCat.CatId = int.Parse(Request.Form["CatId"]);
+                db.Entry(postCat).State = EntityState.Modified;                
+
                 db.SaveChanges();
+
                 return RedirectToAction("Index", "Home");
             }
             return View();

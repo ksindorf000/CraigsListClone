@@ -1,4 +1,4 @@
-﻿@model CraigsListClone.Models.Post
+﻿@model CraigsListClone.Models.PostViewModel
 
 @{
     ViewBag.Title = "Detail";
@@ -18,32 +18,40 @@
 
             }
         </h1>
-        <p class="header-p">
-            Posted by:
-            <a href="/u/@Model.Owner.UserName">@Model.Owner.UserName</a>
-        </p>
-        <p>@Model.Created.ToString()</p>
-    </div>
-</div>
+        <div class="header-p">
 
-<!------Post----->
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <div>
-            @Model.Desc
-            <ul>
-                @foreach (var u in ViewBag.UploadsList)
-                {
-                    <li><img src="@u.FilePath" /></li>
-                }
-            </ul>
-            <span class="marb-35">
-                @if (ViewBag.CanEdit)
-                {
-                    @Html.Partial("_Upload")
-                }
-            </span>
-            <hr />
+            <p>
+                Posted by:
+                <a href="/u/@Model.Owner.UserName">@Model.Owner.UserName</a>
+                on 
+                @Model.Created.ToString()
+            </p>
+
+            <p>
+                Category: @Model.CatName
+            </p>
+
+        </div>
+        <hr />
+    </div>
+
+    <!------Post----->
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div>
+                @Model.Desc
+                <ul>
+                    @foreach (var u in ViewBag.UploadsList)
+                    {
+                        <li><img src="@u.FilePath" /></li>
+                    }
+                </ul>
+                <span class="marb-35">
+                    @if (ViewBag.CanEdit)
+                    {
+                        @Html.Partial("_Upload")
+                    }
+                </span>
+            </div>
         </div>
     </div>
-</div>

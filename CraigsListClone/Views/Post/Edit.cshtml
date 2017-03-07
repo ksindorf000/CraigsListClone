@@ -1,4 +1,4 @@
-﻿@model CraigsListClone.Models.Post
+﻿@model CraigsListClone.Models.PostViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -48,6 +48,13 @@
                     @Html.LabelFor(m => m.CityId)
                     <div class="form-group">
                         @Html.DropDownList("CityId", null, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <!--CITY-->
+                    @Html.LabelFor(m => m.CatName)
+                    <div class="form-group">
+                        @Html.DropDownList("CatId", null, htmlAttributes: new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="row marb-35">
