@@ -15,12 +15,39 @@ namespace CraigsListClone.Controllers
         // GET: Posts
         public ViewResult Index()
         {
+            ViewBag.Cities = db.Cities.ToList();
+            List<Post> postList = db.Posts.OrderByDescending(p => p.Created).ToList();
+
+            CategorizePosts(postList);
+
+            return View();
+        }
+
+        //Sort Posts By City
+        public ActionResult CitySort(int id)
+        {
+            var city = db.Cities.Find(id);
+            ViewBag.City = city.Name + ", " + city.State;
+
+            ViewBag.PostVMList = new List<PostViewModel>();
+            List<Post> postList = db.Posts
+                .Where(p => p.CityId == id)
+                .OrderByDescending(p => p.Created)
+                .ToList();
+
+            CategorizePosts(postList);            
+
+            return View();
+        }
+
+        //Categorize Posts
+        private void CategorizePosts(List<Post> postList)
+        {
             ViewBag.ForSale = new List<PostViewModel>();
             ViewBag.ForRent = new List<PostViewModel>();
             ViewBag.Services = new List<PostViewModel>();
             ViewBag.Uncategorized = new List<PostViewModel>();
 
-            List<Post> postList = db.Posts.OrderByDescending(p => p.Created).ToList();
             foreach (var post in postList)
             {
                 PostViewModel pVM = new PostViewModel(post);
@@ -44,26 +71,6 @@ namespace CraigsListClone.Controllers
                     ViewBag.Uncategorized.Add(pVM);
                 }
             };
-
-            return View();
-        }
-
-        public ActionResult CitySort(int id)
-        {
-            ViewBag.Cities = db.Cities.ToList();
-
-            ViewBag.PostVMList = new List<PostViewModel>();
-            List<Post> postList = db.Posts
-                .Where(p => p.CityId == id)
-                .OrderByDescending(p => p.Created)
-                .ToList();
-
-            foreach (var post in postList)
-            {
-                PostViewModel pVM = new PostViewModel(post);
-                ViewBag.ForSale.Add(pVM);
-            }
-            return View();
         }
     }
 }

@@ -3,13 +3,13 @@
     ViewBag.Title = "View";
 }
 
-<h2>Posts By City</h2>
-
+<h3 style="text-align:center">@ViewBag.City</h3>
+<hr />
 <div class="row">
     <div class="col-lg-4">
-        <h3>@ViewBag.City</h3>
+        <h3>For Sale</h3>
         <hr />
-        @foreach (var p in ViewBag.PostVMList)
+        @foreach (var p in ViewBag.ForSale)
         {
             <div class="row">
                 <div class="col-md-12">
@@ -18,7 +18,51 @@
                         @p.Desc
                     </p>
                     <p>
-                        @p.Cost
+                        $@p.Cost
+                    </p>
+                    <p>
+                        @p.Owner.UserName, @p.CityName
+                    </p>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+    <div class="col-lg-4">
+        <h3>For Rent</h3>
+        <hr />
+        @foreach (var p in ViewBag.ForRent)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <strong><a href="/p/@p.Id">@p.Title</a> - @p.CatName</strong>
+                    <p>
+                        @p.Desc
+                    </p>
+                    <p>
+                        $@p.Cost
+                    </p>
+                    <p>
+                        @p.Owner.UserName
+                    </p>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+    <div class="col-lg-4">
+        <h3>Services</h3>
+        <hr />
+        @foreach (var p in ViewBag.Services)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <strong><a href="/p/@p.Id">@p.Title</a> - @p.CatName</strong>
+                    <p>
+                        @p.Desc
+                    </p>
+                    <p>
+                        $@p.Cost
                     </p>
                     <p>
                         @p.Owner.UserName
@@ -29,3 +73,4 @@
         }
     </div>
 </div>
+

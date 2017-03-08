@@ -38,6 +38,7 @@ namespace CraigsListClone.Models
         public int CityId { get; set; }
         public string CityName { get; set; }
         public string CatName { get; set; }
+        public int CatId { get; set; }
         public Category Category { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
 
@@ -56,10 +57,11 @@ namespace CraigsListClone.Models
             OwnerId = post.OwnerId;
             Owner = post.Owner;
             CityName = post.PostCity.Name;
-            CatName = db.PostCategories
+            CatId = db.PostCategories
                 .Where(pc => pc.PostId == post.Id)
-                .Select(pc => pc.Category.Name).FirstOrDefault();
-            Category = db.Categories.Where(c => c.Name == CatName).FirstOrDefault();
+                .Select(pc => pc.Category.Id).FirstOrDefault();
+            Category = db.Categories.Where(c => c.Id == CatId).FirstOrDefault();
+            CatName = Category.Name;
         }        
     }
 }
