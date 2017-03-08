@@ -310,6 +310,7 @@
     <Content Include="Views\Post\Delete.cshtml" />
     <Content Include="Views\Shared\_Upload.cshtml" />
     <Content Include="Views\Home\CitySort.cshtml" />
+    <Content Include="Views\Home\CategorySort.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,10 +13,16 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
         @foreach (var c in ViewBag.Cities)
         {
             <span class="mar-lr-30">@Html.ActionLink((string)c.Name, "CitySort", "Home", new { id = (int)c.Id }, null) </span>
+        }
+    </div>
+    <div class="col-lg-6">
+        @foreach (var ca in ViewBag.Cats)
+        {
+            <span class="mar-lr-30">@Html.ActionLink((string)ca.Name, "CategorySort", "Home", new { id = (int)ca.Id }, null) </span>
         }
     </div>
 </div>

@@ -16,6 +16,9 @@ namespace CraigsListClone.Controllers
         public ViewResult Index()
         {
             ViewBag.Cities = db.Cities.ToList();
+            ViewBag.Cats = db.Categories
+                .Where(c => c.ParentId != null)
+                .ToList();
             List<Post> postList = db.Posts.OrderByDescending(p => p.Created).ToList();
 
             CategorizePosts(postList);
@@ -38,6 +41,38 @@ namespace CraigsListClone.Controllers
             CategorizePosts(postList);            
 
             return View();
+        }
+
+
+        //Sort Posts By Category
+        public ActionResult CategorySort(int id)
+        {
+            var category = db.Categories.Find(id);
+            var parent = db.Categories.Find(category.ParentId);
+            ViewBag.Cat = category.Name + ", " + parent.Name;
+
+            ViewBag.Posts = new List<PostViewModel>();
+
+            List<int> postIdList = db.PostCategories
+                .Where(pc => pc.CatId == id)
+                .Select(pc => pc.PostId).ToList();
+
+            List<Post> postList = new List<Post>();
+
+            for (int i = 0; i < postIdList.Count; i ++)
+            {
+                var pId = postIdList[i];
+                var post = db.Posts.Find(pId);
+                postList.Add(post);
+            }
+
+            foreach (var post in postList)
+            {
+                PostViewModel pVM = new PostViewModel(post);
+                ViewBag.Posts.Add(pVM);
+            }
+
+                return View();
         }
 
         //Categorize Posts
