@@ -22,7 +22,7 @@
     <div class="col-lg-6">
         @foreach (var ca in ViewBag.Cats)
         {
-            <span class="mar-lr-30">@Html.ActionLink((string)ca.Name, "CategorySort", "Home", new { id = (int)ca.Id }, null) </span>
+            <span class="mar-lr-30">@Html.ActionLink((string)ca.Name, "CategorySort", "Home", new { id = (int)ca.Id, sortby = "none" }, null) </span>
         }
     </div>
 </div>

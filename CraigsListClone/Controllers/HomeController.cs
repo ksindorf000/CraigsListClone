@@ -38,14 +38,14 @@ namespace CraigsListClone.Controllers
                 .OrderByDescending(p => p.Created)
                 .ToList();
 
-            CategorizePosts(postList);            
+            CategorizePosts(postList);
 
             return View();
         }
 
 
         //Sort Posts By Category
-        public ActionResult CategorySort(int id)
+        public ActionResult CategorySort(int? id, string sortBy)
         {
             var category = db.Categories.Find(id);
             var parent = db.Categories.Find(category.ParentId);
@@ -57,23 +57,52 @@ namespace CraigsListClone.Controllers
                 .Where(pc => pc.CatId == id)
                 .Select(pc => pc.PostId).ToList();
 
+            ViewBag.Posts = SortNewHighLow(postIdList, sortBy);
+
+            return View();
+        }
+
+        //Sort Sub-category posts by Newest, High Price or Low Price
+        private dynamic SortNewHighLow(List<int> postIdList, string sortBy)
+        {
             List<Post> postList = new List<Post>();
 
-            for (int i = 0; i < postIdList.Count; i ++)
+            for (int i = 0; i < postIdList.Count; i++)
             {
                 var pId = postIdList[i];
                 var post = db.Posts.Find(pId);
                 postList.Add(post);
             }
 
-            foreach (var post in postList)
+            List<Post> postListSorted = new List<Post>();
+
+            if (sortBy == "none")
+            {
+                postListSorted = postList;
+            }
+            else if (sortBy == "new")
+            {
+                postListSorted = postList.OrderByDescending(p => p.Created).ToList();
+            }
+            else if (sortBy == "high")
+            {
+                postListSorted = postList.OrderByDescending(p => p.Cost).ToList();
+            }
+            else if (sortBy == "low")
+            {
+                postListSorted = postList.OrderBy(p => p.Cost).ToList();
+            }
+
+            ViewBag.Posts = new List<PostViewModel>();
+
+            foreach (var post in postListSorted)
             {
                 PostViewModel pVM = new PostViewModel(post);
                 ViewBag.Posts.Add(pVM);
             }
-
-                return View();
+            return ViewBag.Posts;
         }
+
 
         //Categorize Posts
         private void CategorizePosts(List<Post> postList)
