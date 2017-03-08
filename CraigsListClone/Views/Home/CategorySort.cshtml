@@ -5,30 +5,82 @@
 
 <h3 style="text-align:center">@ViewBag.Cat</h3>
 <p style="text-align:center">
-    @Html.ActionLink("Newest", "CategorySort", "Home", new { sortby = "new" }, null) || 
-    @Html.ActionLink("Highest Price", "CategorySort", "Home", new { sortby = "high" }, null) || 
-    @Html.ActionLink("Lowest Price", "CategorySort", "Home", new { sortby = "low" }, null)
+    @Html.ActionLink("Newest", "CategorySort", "Home", new { sortby = "new", viewSelect = "list" }, null) ||
+    @Html.ActionLink("Highest Price", "CategorySort", "Home", new { sortby = "high", viewSelect = "list" }, null) ||
+    @Html.ActionLink("Lowest Price", "CategorySort", "Home", new { sortby = "low", viewSelect = "list" }, null)
+</p>
+<p style="text-align:center">
+    @Html.ActionLink("Thumbnail", "CategorySort", "Home", new { sortby = (string)ViewBag.Sort, viewSelect = "thumb" }, null) ||
+    @Html.ActionLink("List", "CategorySort", "Home", new { sortby = (string)ViewBag.Sort, viewSelect = "list" }, null) ||
+    @Html.ActionLink("Gallery", "CategorySort", "Home", new { sortby = (string)ViewBag.Sort, viewSelect = "gallery" }, null)
 </p>
 <hr />
 <div class="row">
     <div class="col-lg-12">
         @foreach (var p in ViewBag.Posts)
         {
-            <div class="row">
-                <div class="col-md-12">
-                    <strong><a href="/p/@p.Id">@p.Title</a> - @p.Created</strong>
-                    <p>
-                        @p.Desc
-                    </p>
-                    <p>
-                        $@p.Cost
-                    </p>
-                    <p>
-                        @p.Owner.UserName, @p.CityName
-                    </p>
+            if (ViewBag.View == "thumb")
+            {
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">                            
+                            <img src="@p.ThumbFilePath">                            
+                            <div class="caption">
+                                <strong><a href="/p/@p.Id">@p.Title</a> - @p.Created</strong>
+                                <p>
+                                    @p.Desc
+                                </p>
+                                <p>
+                                    $@p.Cost
+                                </p>
+                                <p>
+                                    @p.Owner.UserName, @p.CityName
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            }
+            if (ViewBag.View == "list")
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong><a href="/p/@p.Id">@p.Title</a> - @p.Created</strong>
+                        <p>
+                            @p.Desc
+                        </p>
+                        <p>
+                            $@p.Cost
+                        </p>
+                        <p>
+                            @p.Owner.UserName, @p.CityName
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <hr />
+                <hr />
+            }
+            if (ViewBag.View == "gallery")
+            {
+                <div class="container">
+                    <div class="col-lg-9">
+                        <div class="thumbnail">
+                            <img class="thumb" src="@p.ThumbFilePath">      
+                            <div class="caption text-center">
+                                <span>
+                                    <strong><a href="/p/@p.Id">@p.Title</a> - @p.Created</strong>
+                                </span> |
+                                <span>
+                                    Price: $@p.Cost
+                                </span> |
+                                <span>
+                                    Location: @p.CityName
+                                </span> |
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            }
         }
     </div>
 </div>
+
+

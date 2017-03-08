@@ -16,9 +16,7 @@ namespace CraigsListClone.Controllers
         public ViewResult Index()
         {
             ViewBag.Cities = db.Cities.ToList();
-            ViewBag.Cats = db.Categories
-                .Where(c => c.ParentId != null)
-                .ToList();
+            
             List<Post> postList = db.Posts.OrderByDescending(p => p.Created).ToList();
 
             CategorizePosts(postList);
@@ -44,12 +42,62 @@ namespace CraigsListClone.Controllers
         }
 
 
-        //Sort Posts By Category
-        public ActionResult CategorySort(int? id, string sortBy)
+
+        //Categorize Posts
+        private void CategorizePosts(List<Post> postList)
+        {
+            ViewBag.CatsForSale = new List<Category>();
+            ViewBag.CatsForRent = new List<Category>();
+            ViewBag.CatServices = new List<Category>();
+
+            ViewBag.ForSale = new List<PostViewModel>();
+            ViewBag.ForRent = new List<PostViewModel>();
+            ViewBag.Services = new List<PostViewModel>();
+            ViewBag.Uncategorized = new List<PostViewModel>();
+
+            foreach (var post in postList)
+            {
+                PostViewModel pVM = new PostViewModel(post);
+                if (pVM.Category != null)
+                {
+                    if (pVM.Category.ParentId == 4)
+                    {
+                        ViewBag.ForSale.Add(pVM);
+                    }
+                    else if (pVM.Category.ParentId == 5)
+                    {
+                        ViewBag.Services.Add(pVM);
+                    }
+                    else if (pVM.Category.ParentId == 10)
+                    {
+                        ViewBag.ForRent.Add(pVM);
+                    }
+                }
+                else
+                {
+                    ViewBag.Uncategorized.Add(pVM);
+                }
+            };
+
+            ViewBag.CatsForSale = db.Categories
+                .Where(c => c.ParentId == 4)
+                .ToList();
+            ViewBag.CatServices = db.Categories
+                .Where(c => c.ParentId == 5)
+                .ToList();
+            ViewBag.CatsForRent = db.Categories
+                .Where(c => c.ParentId == 10)
+                .ToList();
+        }
+
+        //View Posts By Sub-Category
+        public ActionResult CategorySort(int? id, string sortBy, string viewSelect)
         {
             var category = db.Categories.Find(id);
             var parent = db.Categories.Find(category.ParentId);
             ViewBag.Cat = category.Name + ", " + parent.Name;
+            ViewBag.View = viewSelect;
+            ViewBag.Sort = sortBy;
 
             ViewBag.Posts = new List<PostViewModel>();
 
@@ -103,38 +151,5 @@ namespace CraigsListClone.Controllers
             return ViewBag.Posts;
         }
 
-
-        //Categorize Posts
-        private void CategorizePosts(List<Post> postList)
-        {
-            ViewBag.ForSale = new List<PostViewModel>();
-            ViewBag.ForRent = new List<PostViewModel>();
-            ViewBag.Services = new List<PostViewModel>();
-            ViewBag.Uncategorized = new List<PostViewModel>();
-
-            foreach (var post in postList)
-            {
-                PostViewModel pVM = new PostViewModel(post);
-                if (pVM.Category != null)
-                {
-                    if (pVM.Category.ParentId == 4)
-                    {
-                        ViewBag.ForSale.Add(pVM);
-                    }
-                    else if (pVM.Category.ParentId == 5)
-                    {
-                        ViewBag.Services.Add(pVM);
-                    }
-                    else if (pVM.Category.ParentId == 10)
-                    {
-                        ViewBag.ForRent.Add(pVM);
-                    }
-                }
-                else
-                {
-                    ViewBag.Uncategorized.Add(pVM);
-                }
-            };
-        }
     }
 }

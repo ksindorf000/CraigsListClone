@@ -19,17 +19,15 @@
             <span class="mar-lr-30">@Html.ActionLink((string)c.Name, "CitySort", "Home", new { id = (int)c.Id }, null) </span>
         }
     </div>
-    <div class="col-lg-6">
-        @foreach (var ca in ViewBag.Cats)
-        {
-            <span class="mar-lr-30">@Html.ActionLink((string)ca.Name, "CategorySort", "Home", new { id = (int)ca.Id, sortby = "none" }, null) </span>
-        }
-    </div>
 </div>
 
 <div class="row">
     <div class="col-lg-4">
         <h3>For Sale</h3>
+        @foreach (var ca in ViewBag.CatsForSale)
+        {
+            @Html.ActionLink((string)ca.Name + " ", "CategorySort", "Home", new { id = (int)ca.Id, sortby = "none", viewSelect = "list" }, null)
+        }
         <hr />
         @foreach (var p in ViewBag.ForSale)
         {
@@ -52,6 +50,10 @@
     </div>
     <div class="col-lg-4">
         <h3>For Rent</h3>
+        @foreach (var ca in ViewBag.CatsForRent)
+        {
+            @Html.ActionLink((string)ca.Name, "CategorySort", "Home", new { id = (int)ca.Id, sortby = "none", viewSelect = "list" }, null)
+        }
         <hr />
         @foreach (var p in ViewBag.ForRent)
         {
@@ -74,6 +76,10 @@
     </div>
     <div class="col-lg-4">
         <h3>Services</h3>
+        @foreach (var ca in ViewBag.CatServices)
+        {
+            @Html.ActionLink((string)ca.Name, "CategorySort", "Home", new { id = (int)ca.Id, sortby = "none", viewSelect = "list" }, null)
+        }
         <hr />
         @foreach (var p in ViewBag.Services)
         {

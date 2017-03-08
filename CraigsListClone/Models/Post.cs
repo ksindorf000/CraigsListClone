@@ -41,7 +41,9 @@ namespace CraigsListClone.Models
         public int CatId { get; set; }
         public Category Category { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
-
+        public List<Upload> Uploads { get; set; }
+        public string ThumbFilePath { get; set; }
+        
         public PostViewModel()
         {
 
@@ -62,6 +64,13 @@ namespace CraigsListClone.Models
                 .Select(pc => pc.Category.Id).FirstOrDefault();
             Category = db.Categories.Where(c => c.Id == CatId).FirstOrDefault();
             CatName = Category.Name;
+            Uploads = db.Uploads
+                .Where(u => u.TypeRef == "Post" && u.RefId == post.Id)
+                .ToList();
+            if (Uploads.Count > 0)
+            {
+                ThumbFilePath = Uploads.First().FilePath;
+            }
         }        
     }
 }
