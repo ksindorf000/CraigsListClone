@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Posts By City</h2>
+
+<div class="row">
+    <div class="col-lg-4">
+        <h3>@ViewBag.City</h3>
+        <hr />
+        @foreach (var p in ViewBag.PostVMList)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <strong><a href="/p/@p.Id">@p.Title</a> - @p.CatName</strong>
+                    <p>
+                        @p.Desc
+                    </p>
+                    <p>
+                        @p.Cost
+                    </p>
+                    <p>
+                        @p.Owner.UserName
+                    </p>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+</div>

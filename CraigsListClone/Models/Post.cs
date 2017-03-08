@@ -36,6 +36,7 @@ namespace CraigsListClone.Models
         public string OwnerId { get; set; }
         public virtual ApplicationUser Owner { get; set; }
         public int CityId { get; set; }
+        public string CityName { get; set; }
         public string CatName { get; set; }
         public Category Category { get; set; }
         public IEnumerable<SelectListItem> Categories { get; set; }
@@ -54,7 +55,7 @@ namespace CraigsListClone.Models
             Created = post.Created;
             OwnerId = post.OwnerId;
             Owner = post.Owner;
-            CityId = post.CityId;
+            CityName = post.PostCity.Name;
             CatName = db.PostCategories
                 .Where(pc => pc.PostId == post.Id)
                 .Select(pc => pc.Category.Name).FirstOrDefault();

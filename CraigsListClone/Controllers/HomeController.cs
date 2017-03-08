@@ -43,22 +43,26 @@ namespace CraigsListClone.Controllers
                 {
                     ViewBag.Uncategorized.Add(pVM);
                 }
-            };            
+            };
 
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult CitySort(int id)
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Cities = db.Cities.ToList();
 
-            return View();
-        }
+            ViewBag.PostVMList = new List<PostViewModel>();
+            List<Post> postList = db.Posts
+                .Where(p => p.CityId == id)
+                .OrderByDescending(p => p.Created)
+                .ToList();
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+            foreach (var post in postList)
+            {
+                PostViewModel pVM = new PostViewModel(post);
+                ViewBag.ForSale.Add(pVM);
+            }
             return View();
         }
     }
